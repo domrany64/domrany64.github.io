@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Damon Aliomrany - DevOps Engineer</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --text-light: #7f8c8d;
+            --background-color: #181c22;
+            --section-bg: #23272f;
+            --box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+        }
+        
+        .header-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header-text h2 {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .header-text p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        section {
+            background: var(--section-bg);
+            margin-bottom: 2rem;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-color);
+        }
+        
+        .summary p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .overview {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .overview-item {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 1rem;
+            background: var(--light-color);
+            border-radius: 5px;
+        }
+        
+        .overview-item .number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .experience-item, .education-item {
+            margin-bottom: 2rem;
+        }
+        
+        .experience-item h3, .education-item h3 {
+            font-size: 1.3rem;
+            color: var(--dark-color);
+            margin-bottom: 0.3rem;
+        }
+        
+        .job-title, .degree {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+        
+        .date-location {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            font-style: italic;
+        }
+        
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: space-between;
+        }
+        
+        .skill-column {
+            flex: 1 1 45%;
+            min-width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .skill-category {
+            background: var(--light-color);
+            border-radius: 5px;
+            padding: 1rem;
+            margin-bottom: 0;
+        }
+        
+        .skill-collapse-header {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+        }
+        
+        .skill-collapse-toggle {
+            cursor: pointer;
+            background: var(--secondary-color);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 1rem;
+            margin-right: 0.5rem;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+        
+        .skill-collapse-toggle[aria-expanded="true"] {
+            background: var(--primary-color);
+        }
+        
+        .skill-collapsible-content {
+            display: none;
+        }
+        
+        .skill-collapsible-content.expanded {
+            display: block;
+        }
+        
+        @media (max-width: 900px) {
+            .skills-container {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .skill-column {
+                min-width: 0;
+            }
+        }
+        
+        .languages {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .language-item {
+            flex: 1;
+        }
+        
+        .language-name {
+            font-weight: bold;
+        }
+        
+        .language-level {
+            color: var(--text-light);
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .overview {
+                flex-direction: column;
+            }
+            
+            .skills-container, .languages {
+                flex-direction: column;
+            }
+        }
+
+        .collapse-toggle {
+            cursor: pointer;
+            background: var(--secondary-color);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+            transition: background 0.2s;
+        }
+        .collapse-toggle[aria-expanded="true"] {
+            background: var(--primary-color);
+        }
+        .collapsible-content {
+            display: none;
+            margin-top: 0.5rem;
+        }
+        .collapsible-content.expanded {
+            display: block;
+        }
+        .experience-item .collapse-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.2rem;
+        }
+
+        /* Light mode overrides */
+        body.light-mode {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --text-light: #7f8c8d;
+            --background-color: #f9f9f9;
+            --section-bg: #fff;
+            --box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        body.light-mode section {
+            background: var(--section-bg);
+        }
+        body.light-mode {
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        .darkmode-toggle-btn {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            z-index: 1000;
+            background: var(--secondary-color);
+            color: #fff;
+            border: none;
+            border-radius: 24px;
+            padding: 0.5rem 1.2rem;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: background 0.2s;
+        }
+        .darkmode-toggle-btn:hover {
+            background: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <button class="darkmode-toggle-btn" id="toggle-darkmode">Light Mode</button>
+    <header>
+        <div class="container header-content">
+            <img src="https://bold.pro/prflphoto/p/no-country/68/fcde2e55-ba8a-4dff-8f12-396a0b07bc72/cropped/1747766838652/2o4s0l.jpeg" 
+                 alt="Damon Aliomrany" class="profile-photo">
+            <div class="header-text">
+                <h1>Damon Aliomrany</h1>
+                <h2>DevOps Engineer</h2>
+                <p>Portland, OR</p>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="summary">
+            <h2>Summary</h2>
+            <p>Highly accomplished Infrastructure and DevOps Engineer with a proven track record of automating OS provisioning and building scalable cloud solutions. Expert in leveraging a diverse range of automation, virtualization, and monitoring technologies to enhance system reliability and optimize performance. Adept at bridging development and operations through strategic project planning and collaborative teamwork within Agile and Scrum frameworks.</p>
+        </section>
+        
+        <section class="overview-section">
+            <h2>Overview</h2>
+            <div class="overview">
+                <div class="overview-item">
+                    <div class="number">14</div>
+                    <div class="text">years of professional experience</div>
+                </div>
+                <div class="overview-item">
+                    <div class="number">24</div>
+                    <div class="text">Certifications</div>
+                </div>
+                <div class="overview-item">
+                    <div class="number">4</div>
+                    <div class="text">years of post-secondary education</div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="experience">
+            <h2>Work History</h2>
+            
+            <div class="experience-item">
+                <div class="collapse-header">
+                    <h3>Intel</h3>
+                </div>
+                <div class="job-title">Infrastructure and DevOps Engineer</div>
+                <div class="date-location">06.2021 - Current | Hillsboro, OR</div>
+                <ul class="collapsible-content expanded">
+                    <li>Developed a web application utilizing PXE, SQL, Python, Ansible, AWX, and shell scripting for automated lab inventory management, and generated Power BI reports to visualize inventory data.</li>
+                    <li>Implemented virtual setups for developer and validation teams with Simics and LXC, reducing build time and complexity while enhancing availability.</li>
+                    <li>Automated operating system provisioning using Linux bash, Python, and SQL to streamline deployment processes.</li>
+                </ul>
+            </div>
+            
+            <div class="experience-item">
+                <div class="collapse-header">
+                    <h3>Intel</h3>
+                </div>
+                <div class="job-title">Computer Laboratory Technician</div>
+                <div class="date-location">04.2021 - 06.2021 | Hillsboro, OR</div>
+                <ul class="collapsible-content expanded">
+                    <li>Implemented cloud solution platforms (PaaS) for Intel customers, enhancing data center efficiency and scalability.</li>
+                    <li>Installed and maintained physical servers, peripherals, switches, and firewalls, ensuring optimal performance and security in the data center.</li>
+                    <li>Developed a standard network diagram for PaaS, clarifying data center design and improving stakeholder communication.</li>
+                </ul>
+            </div>
+            
+            <div class="experience-item">
+                <div class="collapse-header">
+                    <h3>Intel</h3>
+                </div>
+                <div class="job-title">Network Validation</div>
+                <div class="date-location">11.2016 - 04.2021 | Hillsboro, USA</div>
+                <p class="collapsible-content expanded">
+                    Executed driver certification using VMware Workbench, confirming functionality and reliability through Python script analysis.
+                </p>
+            </div>
+            
+            <div class="experience-item">
+                <div class="collapse-header">
+                    <h3>Intel</h3>
+                </div>
+                <div class="job-title">Network Validation</div>
+                <div class="date-location">12.2014 - 10.2016 | Hillsboro, USA</div>
+                <ul class="collapsible-content expanded">
+                    <li>Tested new Hi-Tec network components to ensure full functionality and feature performance.</li>
+                    <li>Automated test cases using scripting languages such as PowerShell, Linux bash shell, and BusyBox.</li>
+                    <li>Configured network devices, including Cisco and eXtreme switches, to establish a robust test environment.</li>
+                </ul>
+            </div>
+            
+            <div class="experience-item">
+                <div class="collapse-header">
+                    <button class="collapse-toggle" aria-expanded="false" aria-controls="exp5">+</button>
+                    <h3>Aryan co</h3>
+                </div>
+                <div class="job-title">Network Engineer</div>
+                <div class="date-location">08.2013 - 05.2014 | Isfahan, Iran</div>
+                <ul id="exp5" class="collapsible-content">
+                    <li>Redesigned network architecture utilizing Cisco routers and switches to optimize performance and enhance routing, NAT, DHCP, and DNS for a national gas company.</li>
+                    <li>Enhanced network security by correcting firewall configurations using Astaro, ensuring robust protection for gas industry operations.</li>
+                    <li>Implemented MPLS and PTMP solutions for seamless external and internal communications, and established network monitoring with Solarwinds using SNMP v3 for Isfahan Gas Company.</li>
+                </ul>
+            </div>
+            
+            <div class="experience-item">
+                <div class="collapse-header">
+                    <button class="collapse-toggle" aria-expanded="false" aria-controls="exp6">+</button>
+                    <h3>BASA Company</h3>
+                </div>
+                <div class="job-title">Network Engineer</div>
+                <div class="date-location">01.2013 - 08.2013 | Tehran, Iran</div>
+                <ul id="exp6" class="collapsible-content">
+                    <li>Assessed and identified current and future hardware, network, and security needs for IOEC, leveraging the TOGAF 9 framework.</li>
+                </ul>
+            </div>
+            
+            <div class="experience-item">
+                <div class="collapse-header">
+                    <button class="collapse-toggle" aria-expanded="false" aria-controls="exp7">+</button>
+                    <h3>Jooya Informatics Company</h3>
+                </div>
+                <div class="job-title">Network Engineer</div>
+                <div class="date-location">02.2011 - 12.2012 | Isfahan, Iran</div>
+                <ul id="exp7" class="collapsible-content">
+                    <li>Administered, designed, and troubleshot LANs, WANs, internet/intranet, and voice networks for various projects, enhancing network reliability and performance.</li>
+                    <li>Designed and implemented Layer 2 and 3 networks, including switches, routers, DHCP, DNS, NAT, routes, and firewalls for multiple companies, optimizing network infrastructure.</li>
+                    <li>Implemented VoIP systems for several organizations using Cisco and Elastix technologies, improving communication efficiency and reducing operational costs.</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="education">
+            <h2>Education</h2>
+            
+            <div class="education-item">
+                <h3>Portland State University</h3>
+                <div class="degree">M.D. in Computer Science</div>
+                <div class="date-location">01.2019 - 06.2020 | Portland, OR</div>
+            </div>
+            
+            <div class="education-item">
+                <h3>Safahan Institute</h3>
+                <div class="degree">Bachelor of Science in Computer Engineering</div>
+                <div class="date-location">09.2008 - 06.2011 | Isfahan, Iran</div>
+            </div>
+        </section>
+        
+        <section class="skills">
+            <h2>Skills</h2>
+            <div class="skills-container">
+                <div class="skill-column">
+                    <div class="skill-category">
+                        <div class="skill-collapse-header">
+                            <button class="skill-collapse-toggle" aria-expanded="false" aria-controls="skill1">+</button>
+                            <h3>Programming & Scripting</h3>
+                        </div>
+                        <ul id="skill1" class="skill-collapsible-content">
+                            <li><strong>Scripting languages</strong> (Python, Shell, PowerShell)</li>
+                            <li><strong>Software development</strong> (Microservices, Web applications, CLI tools, API services)</li>
+                            <li><strong>Test automation</strong> (Unit tests, Integration tests)</li>
+                            <li><strong>Software documentation</strong> (READMEs, API docs, Code doctrines)</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <div class="skill-collapse-header">
+                            <button class="skill-collapse-toggle" aria-expanded="false" aria-controls="skill2">+</button>
+                            <h3>AI/ML in Coding</h3>
+                        </div>
+                        <ul id="skill2" class="skill-collapsible-content">
+                            <li><strong>AI-Powered Development Tools:</strong> Microsoft Copilot, Gemini, ChatGPT, Manus, Perplexity, GitHub Copilot (VS Code Integration)</li>
+                            <li><strong>Internal AI/ML Tools:</strong> iGPT, MI6</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <div class="skill-collapse-header">
+                            <button class="skill-collapse-toggle" aria-expanded="false" aria-controls="skill3">+</button>
+                            <h3>Infrastructure & Cloud</h3>
+                        </div>
+                        <ul id="skill3" class="skill-collapsible-content">
+                            <li><strong>Cloud solutions</strong> (Cloud Foundry, Automaton, AWS, GCP, Azure)</li>
+                            <li><strong>Virtualization technologies</strong> (VMware ESXi, Proxmox, Simics, LXC, Docker)</li>
+                            <li><strong>OS provisioning</strong> (PXE, Kickstart, Ansible)</li>
+                            <li><strong>Hardware and software installation</strong> (Server racks, Network devices, OS deployment)</li>
+                            <li><strong>Direct server support</strong> (Hardware, Firmware, OS installation, Data center operations)</li>
+                            <li><strong>Operating systems</strong> (Linux, Unix, FreeBSD, Windows)</li>
+                            <li><strong>Linux environments</strong> (CLI, Shell scripting, System administration, Systemd, File systems, Networking Troubleshooting)</li>
+                            <li><strong>Database Management</strong> (SQL, NoSQL, Database migrations, Performance tuning)</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <div class="skill-collapse-header">
+                            <button class="skill-collapse-toggle" aria-expanded="false" aria-controls="skill4">+</button>
+                            <h3>Automation & CI/CD</h3>
+                        </div>
+                        <ul id="skill4" class="skill-collapsible-content">
+                            <li><strong>Automation scripting</strong> (Python, Shell, PowerShell, AWX, Ansible)</li>
+                            <li><strong>Developer collaboration</strong> (CI/CD integration, VSCODE, Git)</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <div class="skill-collapse-header">
+                            <button class="skill-collapse-toggle" aria-expanded="false" aria-controls="skill5">+</button>
+                            <h3>Networking</h3>
+                        </div>
+                        <ul id="skill5" class="skill-collapsible-content">
+                            <li><strong>Network configuration</strong> (Cisco, eXtreme, pfSense, VLANs, VXLANs, VPN, Firewalls)</li>
+                            <li><strong>Network fundamentals</strong> (TCP/IP, DNS, DHCP, OSI Model, Routing, Switching, BGP, OSPF)</li>
+                            <li><strong>Networking Protocols</strong> (HTTP/S, DNS, FTP, SSH, VNC)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="skill-column">
+                    <div class="skill-category">
+                        <div class="skill-collapse-header">
+                            <button class="skill-collapse-toggle" aria-expanded="false" aria-controls="skill6">+</button>
+                            <h3>System Administration</h3>
+                        </div>
+                        <ul id="skill6" class="skill-collapsible-content">
+                            <li><strong>System administration</strong> (Linux, Windows, User management, Resource management, Patching)</li>
+                            <li><strong>Maintenance and troubleshooting</strong> (System diagnostics, Log analysis, Performance tuning)</li>
+                            <li><strong>Troubleshooting Tools</strong> (tcpdump, netstat, iostat, strace, lsof)</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <div class="skill-collapse-header">
+                            <button class="skill-collapse-toggle" aria-expanded="false" aria-controls="skill7">+</button>
+                            <h3>Monitoring & Performance</h3>
+                        </div>
+                        <ul id="skill7" class="skill-collapsible-content">
+                            <li><strong>Monitoring and logging</strong> (Zabbix, SolarWinds, Grafana, Splunk, syslog)</li>
+                            <li><strong>Dashboard creation</strong> (Power BI, Tableau, Grafana, Splunk)</li>
+                            <li><strong>Performance management</strong> (Load testing, Stress testing, Benchmarking, Bottleneck identification)</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <div class="skill-collapse-header">
+                            <button class="skill-collapse-toggle" aria-expanded="false" aria-controls="skill8">+</button>
+                            <h3>Project Management & Soft Skills</h3>
+                        </div>
+                        <ul id="skill8" class="skill-collapsible-content">
+                            <li><strong>Data analysis</strong> (Power BI, Splunk, Grafana)</li>
+                            <li><strong>Analytical skills</strong> (Data interpretation, Trend analysis, Statistical analysis)</li>
+                            <li><strong>Technical documentation</strong> (Visio, ERD, UML, Markdown)</li>
+                            <li><strong>Project management</strong> (Agile, Scrum, JIRA)</li>
+                            <li><strong>Agile Methodologies</strong> (Scrum, Sprint planning)</li>
+                            <li><strong>Strategic project planning</strong> (Road mapping, Gap analysis, Technology assessment)</li>
+                            <li><strong>Time management</strong> (Prioritization, Task scheduling, Deadline management)</li>
+                            <li><strong>Defining requirements</strong> (Stakeholder interviews, Use cases, User stories, Functional specs)</li>
+                            <li><strong>Collaboration skills</strong> (Agile, Scrum, Cross-functional teams, Communication)</li>
+                            <li><strong>Problem solving</strong> (Root cause analysis, Debugging, Troubleshooting methodologies)</li>
+                            <li><strong>Problem-solving abilities</strong> (Critical thinking, Analytical reasoning, Troubleshooting)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="certifications">
+            <h2>Certifications</h2>
+            <ul>
+                <li><strong>Python for Data Science and AI</strong></li>
+                <li><strong>Databases and SQL for Data Science</strong></li>
+                <li><strong>Ansible Tower Overview</strong></li>
+                <li><strong>Complete DevOps Ansible Automation Training</strong></li>
+                <li><strong>PowerBI Zero to Hero</strong></li>
+                <li><strong>High Availability cluster with PROXMOX and CEPH</strong></li>
+                <li><strong>Learning Linux Shell Scripting</strong></li>
+            </ul>
+        </section>
+        
+        <section class="languages-section">
+            <h2>Languages</h2>
+            <div class="languages">
+                <div class="language-item">
+                    <div class="language-name">Persian</div>
+                    <div class="language-level">Native language</div>
+                </div>
+                <div class="language-item">
+                    <div class="language-name">English</div>
+                    <div class="language-level">Advanced</div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="personal-info">
+            <h2>Personal Information</h2>
+            <p>Male</p>
+            <p>Married</p>
+            <p>Father of three</p>
+        </section>
+        
+        <section class="affiliations">
+            <h2>Activities and Honors</h2>
+            <ul>
+                <li>Volleyball</li>
+                <li>PC gaming</li>
+                <li>Movies</li>
+                <li>Board games</li>
+                <li>Reading</li>
+                <li>Hiking</li>
+                <li>Traveling</li>
+                <li>Podcasts</li>
+            </ul>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container"></div>
+            <p>&copy; 2025 Damon Aliomrany. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Collapsible job descriptions (only for last 3 jobs)
+        document.querySelectorAll('.collapse-toggle').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var targetId = btn.getAttribute('aria-controls');
+                var content = document.getElementById(targetId);
+                var expanded = btn.getAttribute('aria-expanded') === 'true';
+                btn.setAttribute('aria-expanded', !expanded);
+                btn.textContent = expanded ? '+' : '−';
+                if (content) {
+                    content.classList.toggle('expanded', !expanded);
+                }
+            });
+        });
+
+        // Collapsible skill sections (all minimized by default)
+        document.querySelectorAll('.skill-collapse-toggle').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                var targetId = btn.getAttribute('aria-controls');
+                var content = document.getElementById(targetId);
+                var expanded = btn.getAttribute('aria-expanded') === 'true';
+                btn.setAttribute('aria-expanded', !expanded);
+                btn.textContent = expanded ? '+' : '−';
+                if (content) {
+                    content.classList.toggle('expanded', !expanded);
+                }
+                e.stopPropagation();
+            });
+        });
+
+        // Dark mode toggle
+        const toggleBtn = document.getElementById('toggle-darkmode');
+        function setMode(light) {
+            if (light) {
+                document.body.classList.add('light-mode');
+                toggleBtn.textContent = 'Dark Mode';
+            } else {
+                document.body.classList.remove('light-mode');
+                toggleBtn.textContent = 'Light Mode';
+            }
+        }
+        // Default to dark mode
+        setMode(false);
+        toggleBtn.addEventListener('click', function() {
+            setMode(!document.body.classList.contains('light-mode'));
+        });
+    </script>
+</body>
+</html>
