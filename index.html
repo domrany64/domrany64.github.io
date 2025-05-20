@@ -10,11 +10,17 @@
             --secondary-color: #3498db;
             --light-color: #ecf0f1;
             --dark-color: #2c3e50;
-            --text-color: #333;
-            --text-light: #7f8c8d;
+            --text-color: #e6e6e6; /* changed from #333 to a light gray for dark mode */
+            --text-light: #b0b8c1; /* lighter for dark mode */
             --background-color: #181c22;
             --section-bg: #23272f;
             --box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            --button-bg: #23272f;         /* darker for dark mode */
+            --button-bg-hover: #353b47;   /* slightly lighter for hover */
+            --button-text: #fff;
+            --overview-bg: #2d323c; /* lighter dark background for overview items in dark mode */
+            --special-btn-bg: #8B0000; /* dark red */
+            --special-btn-hover: #a83232; /* lighter dark red */
         }
         
         * {
@@ -26,7 +32,7 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: var(--text-color);
+            color: var(--text-color); /* uses updated variable */
             background-color: var(--background-color);
         }
         
@@ -82,10 +88,16 @@
         }
         
         section h2 {
-            color: var(--primary-color);
+            color: #fff; /* bright white for dark mode */
             margin-bottom: 1rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--light-color);
+        }
+        
+        section > ul,
+        section > div > ul,
+        .skill-category > ul {
+            margin-left: 2em;
         }
         
         .summary p {
@@ -106,7 +118,7 @@
             min-width: 200px;
             text-align: center;
             padding: 1rem;
-            background: var(--light-color);
+            background: var(--overview-bg); /* use variable */
             border-radius: 5px;
         }
         
@@ -121,19 +133,25 @@
             margin-bottom: 2rem;
         }
         
-        .experience-item h3, .education-item h3 {
+        .experience-item h3,
+        .education-item h3 {
+            color: #fff; /* white in dark mode */
             font-size: 1.3rem;
-            color: var(--dark-color);
             margin-bottom: 0.3rem;
         }
-        
+
+        body.light-mode .experience-item h3,
+        body.light-mode .education-item h3 {
+            color: var(--dark-color); /* original color in light mode */
+        }
+
         .job-title, .degree {
             font-weight: bold;
             color: var(--secondary-color);
         }
         
         .date-location {
-            color: var(--text-light);
+            color: var(--text-light); /* uses updated variable */
             margin-bottom: 0.5rem;
             font-style: italic;
         }
@@ -154,7 +172,7 @@
         }
         
         .skill-category {
-            background: var(--light-color);
+            background: var(--overview-bg); /* use overview-bg for skill items */
             border-radius: 5px;
             padding: 1rem;
             margin-bottom: 0;
@@ -169,8 +187,8 @@
         
         .skill-collapse-toggle {
             cursor: pointer;
-            background: var(--secondary-color);
-            color: #fff;
+            background: var(--button-bg);
+            color: var(--button-text);
             border: none;
             border-radius: 50%;
             width: 24px;
@@ -181,8 +199,12 @@
             flex-shrink: 0;
         }
         
+        .skill-collapse-toggle:hover {
+            background: var(--button-bg-hover);
+        }
+        
         .skill-collapse-toggle[aria-expanded="true"] {
-            background: var(--primary-color);
+            background: var(--secondary-color);
         }
         
         .skill-collapsible-content {
@@ -218,7 +240,7 @@
         }
         
         .language-level {
-            color: var(--text-light);
+            color: var(--text-light); /* uses updated variable */
         }
         
         footer {
@@ -246,8 +268,8 @@
 
         .collapse-toggle {
             cursor: pointer;
-            background: var(--secondary-color);
-            color: #fff;
+            background: var(--button-bg);
+            color: var(--button-text);
             border: none;
             border-radius: 50%;
             width: 28px;
@@ -257,8 +279,11 @@
             vertical-align: middle;
             transition: background 0.2s;
         }
+        .collapse-toggle:hover {
+            background: var(--button-bg-hover);
+        }
         .collapse-toggle[aria-expanded="true"] {
-            background: var(--primary-color);
+            background: var(--secondary-color);
         }
         .collapsible-content {
             display: none;
@@ -284,22 +309,55 @@
             --background-color: #f9f9f9;
             --section-bg: #fff;
             --box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            --button-bg: var(--secondary-color);
+            --button-bg-hover: var(--primary-color);
+            --button-text: #fff;
+            --overview-bg: #ecf0f1; /* original light color for overview items */
         }
         body.light-mode section {
             background: var(--section-bg);
+        }
+        body.light-mode section h2 {
+            color: var(--primary-color); /* keep original dark blue in light mode */
         }
         body.light-mode {
             color: var(--text-color);
             background-color: var(--background-color);
         }
 
-        .darkmode-toggle-btn {
+        body:not(.light-mode) .darkmode-toggle-btn,
+        body:not(.light-mode) #back-to-top-btn {
+            background: var(--special-btn-bg);
+        }
+        body:not(.light-mode) .darkmode-toggle-btn:hover,
+        body:not(.light-mode) #back-to-top-btn:hover {
+            background: var(--special-btn-hover);
+        }
+
+        body:not(.light-mode) .collapse-toggle,
+        body:not(.light-mode) .skill-collapse-toggle {
+            background: var(--special-btn-bg);
+        }
+        body:not(.light-mode) .collapse-toggle:hover,
+        body:not(.light-mode) .skill-collapse-toggle:hover {
+            background: var(--special-btn-hover);
+        }
+        body:not(.light-mode) .collapse-toggle[aria-expanded="true"],
+        body:not(.light-mode) .skill-collapse-toggle[aria-expanded="true"] {
+            background: var(--special-btn-bg);
+        }
+        body:not(.light-mode) .collapse-toggle[aria-expanded="true"]:hover,
+        body:not(.light-mode) .skill-collapse-toggle[aria-expanded="true"]:hover {
+            background: var(--special-btn-hover);
+        }
+
+        .darkmode-toggle-btn,
+        #back-to-top-btn {
             position: fixed;
-            top: 18px;
             right: 18px;
             z-index: 1000;
-            background: var(--secondary-color);
-            color: #fff;
+            background: var(--button-bg);
+            color: var(--button-text);
             border: none;
             border-radius: 24px;
             padding: 0.5rem 1.2rem;
@@ -308,8 +366,19 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
             transition: background 0.2s;
         }
-        .darkmode-toggle-btn:hover {
-            background: var(--primary-color);
+        .darkmode-toggle-btn:hover,
+        #back-to-top-btn:hover {
+            background: var(--button-bg-hover);
+        }
+        .darkmode-toggle-btn {
+            top: 18px;
+        }
+        #back-to-top-btn {
+            bottom: 18px;
+            margin-top: 0;
+            padding: 0.5rem 1.2rem;
+            font-size: 1rem;
+            border-radius: 24px;
         }
     </style>
 </head>
@@ -336,131 +405,21 @@
         <section class="overview-section">
             <h2>Overview</h2>
             <div class="overview">
-                <div class="overview-item">
+                <div class="overview-item" style="cursor:pointer" onclick="document.getElementById('work-history').scrollIntoView({behavior:'smooth'})">
                     <div class="number">14</div>
                     <div class="text">years of professional experience</div>
                 </div>
-                <div class="overview-item">
+                <div class="overview-item" style="cursor:pointer" onclick="document.getElementById('certifications').scrollIntoView({behavior:'smooth'})">
                     <div class="number">24</div>
                     <div class="text">Certifications</div>
                 </div>
-                <div class="overview-item">
+                <div class="overview-item" style="cursor:pointer" onclick="document.getElementById('education').scrollIntoView({behavior:'smooth'})">
                     <div class="number">4</div>
                     <div class="text">years of post-secondary education</div>
                 </div>
             </div>
         </section>
-        
-        <section class="experience">
-            <h2>Work History</h2>
-            
-            <div class="experience-item">
-                <div class="collapse-header">
-                    <h3>Intel</h3>
-                </div>
-                <div class="job-title">Infrastructure and DevOps Engineer</div>
-                <div class="date-location">06.2021 - Current | Hillsboro, OR</div>
-                <ul class="collapsible-content expanded">
-                    <li>Developed a web application utilizing PXE, SQL, Python, Ansible, AWX, and shell scripting for automated lab inventory management, and generated Power BI reports to visualize inventory data.</li>
-                    <li>Implemented virtual setups for developer and validation teams with Simics and LXC, reducing build time and complexity while enhancing availability.</li>
-                    <li>Automated operating system provisioning using Linux bash, Python, and SQL to streamline deployment processes.</li>
-                </ul>
-            </div>
-            
-            <div class="experience-item">
-                <div class="collapse-header">
-                    <h3>Intel</h3>
-                </div>
-                <div class="job-title">Computer Laboratory Technician</div>
-                <div class="date-location">04.2021 - 06.2021 | Hillsboro, OR</div>
-                <ul class="collapsible-content expanded">
-                    <li>Implemented cloud solution platforms (PaaS) for Intel customers, enhancing data center efficiency and scalability.</li>
-                    <li>Installed and maintained physical servers, peripherals, switches, and firewalls, ensuring optimal performance and security in the data center.</li>
-                    <li>Developed a standard network diagram for PaaS, clarifying data center design and improving stakeholder communication.</li>
-                </ul>
-            </div>
-            
-            <div class="experience-item">
-                <div class="collapse-header">
-                    <h3>Intel</h3>
-                </div>
-                <div class="job-title">Network Validation</div>
-                <div class="date-location">11.2016 - 04.2021 | Hillsboro, USA</div>
-                <p class="collapsible-content expanded">
-                    Executed driver certification using VMware Workbench, confirming functionality and reliability through Python script analysis.
-                </p>
-            </div>
-            
-            <div class="experience-item">
-                <div class="collapse-header">
-                    <h3>Intel</h3>
-                </div>
-                <div class="job-title">Network Validation</div>
-                <div class="date-location">12.2014 - 10.2016 | Hillsboro, USA</div>
-                <ul class="collapsible-content expanded">
-                    <li>Tested new Hi-Tec network components to ensure full functionality and feature performance.</li>
-                    <li>Automated test cases using scripting languages such as PowerShell, Linux bash shell, and BusyBox.</li>
-                    <li>Configured network devices, including Cisco and eXtreme switches, to establish a robust test environment.</li>
-                </ul>
-            </div>
-            
-            <div class="experience-item">
-                <div class="collapse-header">
-                    <button class="collapse-toggle" aria-expanded="false" aria-controls="exp5">+</button>
-                    <h3>Aryan co</h3>
-                </div>
-                <div class="job-title">Network Engineer</div>
-                <div class="date-location">08.2013 - 05.2014 | Isfahan, Iran</div>
-                <ul id="exp5" class="collapsible-content">
-                    <li>Redesigned network architecture utilizing Cisco routers and switches to optimize performance and enhance routing, NAT, DHCP, and DNS for a national gas company.</li>
-                    <li>Enhanced network security by correcting firewall configurations using Astaro, ensuring robust protection for gas industry operations.</li>
-                    <li>Implemented MPLS and PTMP solutions for seamless external and internal communications, and established network monitoring with Solarwinds using SNMP v3 for Isfahan Gas Company.</li>
-                </ul>
-            </div>
-            
-            <div class="experience-item">
-                <div class="collapse-header">
-                    <button class="collapse-toggle" aria-expanded="false" aria-controls="exp6">+</button>
-                    <h3>BASA Company</h3>
-                </div>
-                <div class="job-title">Network Engineer</div>
-                <div class="date-location">01.2013 - 08.2013 | Tehran, Iran</div>
-                <ul id="exp6" class="collapsible-content">
-                    <li>Assessed and identified current and future hardware, network, and security needs for IOEC, leveraging the TOGAF 9 framework.</li>
-                </ul>
-            </div>
-            
-            <div class="experience-item">
-                <div class="collapse-header">
-                    <button class="collapse-toggle" aria-expanded="false" aria-controls="exp7">+</button>
-                    <h3>Jooya Informatics Company</h3>
-                </div>
-                <div class="job-title">Network Engineer</div>
-                <div class="date-location">02.2011 - 12.2012 | Isfahan, Iran</div>
-                <ul id="exp7" class="collapsible-content">
-                    <li>Administered, designed, and troubleshot LANs, WANs, internet/intranet, and voice networks for various projects, enhancing network reliability and performance.</li>
-                    <li>Designed and implemented Layer 2 and 3 networks, including switches, routers, DHCP, DNS, NAT, routes, and firewalls for multiple companies, optimizing network infrastructure.</li>
-                    <li>Implemented VoIP systems for several organizations using Cisco and Elastix technologies, improving communication efficiency and reducing operational costs.</li>
-                </ul>
-            </div>
-        </section>
-        
-        <section class="education">
-            <h2>Education</h2>
-            
-            <div class="education-item">
-                <h3>Portland State University</h3>
-                <div class="degree">M.D. in Computer Science</div>
-                <div class="date-location">01.2019 - 06.2020 | Portland, OR</div>
-            </div>
-            
-            <div class="education-item">
-                <h3>Safahan Institute</h3>
-                <div class="degree">Bachelor of Science in Computer Engineering</div>
-                <div class="date-location">09.2008 - 06.2011 | Isfahan, Iran</div>
-            </div>
-        </section>
-        
+
         <section class="skills">
             <h2>Skills</h2>
             <div class="skills-container">
@@ -571,7 +530,117 @@
             </div>
         </section>
         
-        <section class="certifications">
+        <section class="experience" id="work-history">
+            <h2>Work History</h2>
+            
+            <div class="experience-item">
+                <div class="collapse-header">
+                    <h3>Intel</h3>
+                </div>
+                <div class="job-title">Infrastructure and DevOps Engineer</div>
+                <div class="date-location">06.2021 - Current | Hillsboro, OR</div>
+                <ul class="collapsible-content expanded">
+                    <li>Developed a web application utilizing PXE, SQL, Python, Ansible, AWX, and shell scripting for automated lab inventory management, and generated Power BI reports to visualize inventory data.</li>
+                    <li>Implemented virtual setups for developer and validation teams with Simics and LXC, reducing build time and complexity while enhancing availability.</li>
+                    <li>Automated operating system provisioning using Linux bash, Python, and SQL to streamline deployment processes.</li>
+                </ul>
+            </div>
+            
+            <div class="experience-item">
+                <div class="collapse-header">
+                    <h3>Intel</h3>
+                </div>
+                <div class="job-title">Computer Laboratory Technician</div>
+                <div class="date-location">04.2021 - 06.2021 | Hillsboro, OR</div>
+                <ul class="collapsible-content expanded">
+                    <li>Implemented cloud solution platforms (PaaS) for Intel customers, enhancing data center efficiency and scalability.</li>
+                    <li>Installed and maintained physical servers, peripherals, switches, and firewalls, ensuring optimal performance and security in the data center.</li>
+                    <li>Developed a standard network diagram for PaaS, clarifying data center design and improving stakeholder communication.</li>
+                </ul>
+            </div>
+            
+            <div class="experience-item">
+                <div class="collapse-header">
+                    <h3>Intel</h3>
+                </div>
+                <div class="job-title">Network Validation</div>
+                <div class="date-location">11.2016 - 04.2021 | Hillsboro, USA</div>
+                <ul class="collapsible-content expanded">
+                    <li>Executed driver certification using VMware Workbench, confirming functionality and reliability through Python script analysis.</li>
+                </ul>
+            </div>
+            
+            <div class="experience-item">
+                <div class="collapse-header">
+                    <h3>Intel</h3>
+                </div>
+                <div class="job-title">Network Validation</div>
+                <div class="date-location">12.2014 - 10.2016 | Hillsboro, USA</div>
+                <ul class="collapsible-content expanded">
+                    <li>Tested new Hi-Tec network components to ensure full functionality and feature performance.</li>
+                    <li>Automated test cases using scripting languages such as PowerShell, Linux bash shell, and BusyBox.</li>
+                    <li>Configured network devices, including Cisco and eXtreme switches, to establish a robust test environment.</li>
+                </ul>
+            </div>
+            
+            <div class="experience-item">
+                <div class="collapse-header">
+                    <button class="collapse-toggle" aria-expanded="false" aria-controls="exp5">+</button>
+                    <h3>Aryan co</h3>
+                </div>
+                <div class="job-title">Network Engineer</div>
+                <div class="date-location">08.2013 - 05.2014 | Isfahan, Iran</div>
+                <ul id="exp5" class="collapsible-content">
+                    <li>Redesigned network architecture utilizing Cisco routers and switches to optimize performance and enhance routing, NAT, DHCP, and DNS for a national gas company.</li>
+                    <li>Enhanced network security by correcting firewall configurations using Astaro, ensuring robust protection for gas industry operations.</li>
+                    <li>Implemented MPLS and PTMP solutions for seamless external and internal communications, and established network monitoring with Solarwinds using SNMP v3 for Isfahan Gas Company.</li>
+                </ul>
+            </div>
+            
+            <div class="experience-item">
+                <div class="collapse-header">
+                    <button class="collapse-toggle" aria-expanded="false" aria-controls="exp6">+</button>
+                    <h3>BASA Company</h3>
+                </div>
+                <div class="job-title">Network Engineer</div>
+                <div class="date-location">01.2013 - 08.2013 | Tehran, Iran</div>
+                <ul id="exp6" class="collapsible-content">
+                    <li>Assessed and identified current and future hardware, network, and security needs for IOEC, leveraging the TOGAF 9 framework.</li>
+                </ul>
+            </div>
+            
+            <div class="experience-item">
+                <div class="collapse-header">
+                    <button class="collapse-toggle" aria-expanded="false" aria-controls="exp7">+</button>
+                    <h3>Jooya Informatics Company</h3>
+                </div>
+                <div class="job-title">Network Engineer</div>
+                <div class="date-location">02.2011 - 12.2012 | Isfahan, Iran</div>
+                <ul id="exp7" class="collapsible-content">
+                    <li>Administered, designed, and troubleshot LANs, WANs, internet/intranet, and voice networks for various projects, enhancing network reliability and performance.</li>
+                    <li>Designed and implemented Layer 2 and 3 networks, including switches, routers, DHCP, DNS, NAT, routes, and firewalls for multiple companies, optimizing network infrastructure.</li>
+                    <li>Implemented VoIP systems for several organizations using Cisco and Elastix technologies, improving communication efficiency and reducing operational costs.</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="education" id="education">
+            <h2>Education</h2>
+            
+            <div class="education-item">
+                <h3>Portland State University</h3>
+                <div class="degree">M.D. in Computer Science</div>
+                <div class="date-location">01.2019 - 06.2020 | Portland, OR</div>
+            </div>
+            
+            <div class="education-item">
+                <h3>Safahan Institute</h3>
+                <div class="degree">Bachelor of Science in Computer Engineering</div>
+                <div class="date-location">09.2008 - 06.2011 | Isfahan, Iran</div>
+            </div>
+        </section>
+        
+        <section class="certifications" id="certifications">
             <h2>Certifications</h2>
             <ul>
                 <li><strong>Python for Data Science and AI</strong></li>
@@ -623,8 +692,9 @@
     <footer>
         <div class="container"></div>
             <p>&copy; 2025 Damon Aliomrany. All rights reserved.</p>
-        </div>
-    </footer>
+    </div>
+</footer>
+<button id="back-to-top-btn">Back to Top</button>
 
     <script>
         // Collapsible job descriptions (only for last 3 jobs)
@@ -671,6 +741,11 @@
         setMode(false);
         toggleBtn.addEventListener('click', function() {
             setMode(!document.body.classList.contains('light-mode'));
+        });
+
+        // Back to top button
+        document.getElementById('back-to-top-btn').addEventListener('click', function() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
         });
     </script>
 </body>
