@@ -41,6 +41,21 @@
             margin: 0 auto;
             padding: 0 20px;
         }
+
+        main.container {
+            position: relative;
+        }
+
+        .section-timeline {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #8B0000 0%, #3498db 100%);
+            z-index: 0;
+            border-radius: 2px;
+        }
         
         header {
             background-color: var(--primary-color);
@@ -85,6 +100,8 @@
             padding: 2rem;
             border-radius: 5px;
             box-shadow: var(--box-shadow);
+            position: relative;
+            z-index: 1;
         }
         
         section h2 {
@@ -386,7 +403,7 @@
     <button class="darkmode-toggle-btn" id="toggle-darkmode">Light Mode</button>
     <header>
         <div class="container header-content">
-            <img src="https://bold.pro/prflphoto/p/no-country/68/fcde2e55-ba8a-4dff-8f12-396a0b07bc72/cropped/1747766838652/2o4s0l.jpeg" 
+            <img src="profile.jpeg" 
                  alt="Damon Aliomrany" class="profile-photo">
             <div class="header-text">
                 <h1>Damon Aliomrany</h1>
