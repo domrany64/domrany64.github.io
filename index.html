@@ -397,10 +397,114 @@
             font-size: 1rem;
             border-radius: 24px;
         }
+
+        /* Floating TOC sidebar styles (now left middle) */
+        .toc-sidebar {
+            position: fixed;
+            top: 50%;
+            left: 32px;
+            right: auto;
+            transform: translateY(-50%);
+            width: 220px;
+            background: var(--overview-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+            z-index: 1200;
+            padding: 1rem 0.5rem;
+            font-size: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            transition: background 0.2s;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: right; /* right align text in nav */
+        }
+        .toc-link {
+            display: block;
+            padding: 0.5em 1em;
+            border-radius: 5px;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: background 0.15s, color 0.15s;
+            cursor: pointer;
+            text-align: right; /* right align text in nav */
+        }
+        .toc-link.active {
+            background: #012001; /* even darker green for dark mode */
+            color: #ecf0f1;
+            font-weight: bold;
+        }
+        .toc-link:hover:not(.active) {
+            background: #0c4d0c; /* slightly lighter than active for hover */
+            color: #ecf0f1;
+        }
+        body.light-mode .toc-sidebar {
+            background: #f5faff;
+        }
+        body.light-mode .toc-link.active {
+            background: #3498db33; /* blue shade for light mode */
+            color: #2c3e50;
+        }
+        body.light-mode .toc-link:hover:not(.active) {
+            background: #b3e0fc; /* lighter blue for hover */
+            color: #2c3e50;
+        }
+        @media (max-width: 900px), (max-width: 1100px) {
+            .toc-sidebar {
+                display: none !important;
+            }
+        }
+        /* Hide TOC sidebar if it would overlap content (when there's not enough space) */
+        @media (max-width: 1700px) {
+            .toc-sidebar {
+                display: none !important;
+            }
+        }
+        @media (max-width: 1100px) {
+            .toc-sidebar {
+                display: none;
+            }
+        }
+        @media (max-width: 1400px) and (max-width: 1100px) {
+            .toc-sidebar {
+                display: none;
+            }
+        }
+        @media (max-width: 1600px) and (max-width: 900px) {
+            .toc-sidebar {
+                display: none;
+            }
+        }
+        /* Hide TOC sidebar when viewport is half or less (<= 900px) */
+        @media (max-width: 900px) {
+            .toc-sidebar {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
     <button class="darkmode-toggle-btn" id="toggle-darkmode">Light Mode</button>
+
+    <!-- Floating Table of Contents Sidebar -->
+    <nav class="toc-sidebar" id="toc-sidebar">
+        <ul>
+            <li><a class="toc-link" href="#summary">Summary</a></li>
+            <li><a class="toc-link" href="#overview">Overview</a></li>
+            <li><a class="toc-link" href="#skills">Skills</a></li>
+            <li><a class="toc-link" href="#work-history">Work History</a></li>
+            <li><a class="toc-link" href="#education">Education</a></li>
+            <li><a class="toc-link" href="#certifications">Certifications</a></li>
+            <li><a class="toc-link" href="#languages">Languages</a></li>
+            <li><a class="toc-link" href="#personal-info">Personal Info</a></li>
+            <li><a class="toc-link" href="#affiliations">Activities</a></li>
+        </ul>
+    </nav>
+
     <header>
         <div class="container header-content">
             <img src="profile.jpeg" 
@@ -414,12 +518,12 @@
     </header>
     
     <main class="container">
-        <section class="summary">
+        <section class="summary" id="summary">
             <h2>Summary</h2>
             <p>Highly accomplished Infrastructure and DevOps Engineer with a proven track record of automating OS provisioning and building scalable cloud solutions. Expert in leveraging a diverse range of automation, virtualization, and monitoring technologies to enhance system reliability and optimize performance. Adept at bridging development and operations through strategic project planning and collaborative teamwork within Agile and Scrum frameworks.</p>
         </section>
         
-        <section class="overview-section">
+        <section class="overview-section" id="overview">
             <h2>Overview</h2>
             <div class="overview">
                 <div class="overview-item" style="cursor:pointer" onclick="document.getElementById('work-history').scrollIntoView({behavior:'smooth'})">
@@ -437,7 +541,7 @@
             </div>
         </section>
 
-        <section class="skills">
+        <section class="skills" id="skills">
             <h2>Skills</h2>
             <div class="skills-container">
                 <div class="skill-column">
@@ -670,7 +774,7 @@
             </ul>
         </section>
         
-        <section class="languages-section">
+        <section class="languages-section" id="languages">
             <h2>Languages</h2>
             <div class="languages">
                 <div class="language-item">
@@ -684,14 +788,14 @@
             </div>
         </section>
         
-        <section class="personal-info">
+        <section class="personal-info" id="personal-info">
             <h2>Personal Information</h2>
             <p>Male</p>
             <p>Married</p>
             <p>Father of three</p>
         </section>
         
-        <section class="affiliations">
+        <section class="affiliations" id="affiliations">
             <h2>Activities and Honors</h2>
             <ul>
                 <li>Volleyball</li>
@@ -764,6 +868,64 @@
         document.getElementById('back-to-top-btn').addEventListener('click', function() {
             window.scrollTo({top: 0, behavior: 'smooth'});
         });
+
+        // TOC sidebar scroll and highlight logic
+        (function() {
+            const tocLinks = Array.from(document.querySelectorAll('.toc-link'));
+            const sectionIds = [
+                'summary', 'overview', 'skills', 'work-history', 'education',
+                'certifications', 'languages', 'personal-info', 'affiliations'
+            ];
+            const sections = sectionIds.map(id => document.getElementById(id));
+            // Scroll to section smoothly on click
+            tocLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = link.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        const target = document.getElementById(href.slice(1));
+                        if (target) {
+                            e.preventDefault();
+                            target.scrollIntoView({behavior: 'smooth', block: 'start'});
+                        }
+                    }
+                });
+            });
+            // Highlight current section in view with debounce
+            let activeIdx = -1;
+            let debounceTimer = null;
+            function setActive(idx) {
+                if (activeIdx !== idx) {
+                    tocLinks.forEach((l, i) => l.classList.toggle('active', i === idx));
+                    activeIdx = idx;
+                }
+            }
+            let pendingIdx = -1;
+            function debouncedSetActive(idx) {
+                pendingIdx = idx;
+                if (debounceTimer) clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    setActive(pendingIdx);
+                }, 80); // 80ms delay for smoother UX
+            }
+            // IntersectionObserver for sections
+            const observer = new IntersectionObserver((entries) => {
+                let maxRatio = 0, idx = -1;
+                entries.forEach((entry, i) => {
+                    if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
+                        maxRatio = entry.intersectionRatio;
+                        idx = sectionIds.indexOf(entry.target.id);
+                    }
+                });
+                if (idx !== -1) debouncedSetActive(idx);
+            }, {
+                root: null,
+                rootMargin: '0px 0px -60% 0px',
+                threshold: [0.2, 0.4, 0.6, 0.8, 1]
+            });
+            sections.forEach(section => {
+                if (section) observer.observe(section);
+            });
+        })();
     </script>
 </body>
 </html>
